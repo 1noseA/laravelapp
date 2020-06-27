@@ -6,10 +6,18 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class HelloController extends Controller {
-    public function index(Request $request) {
+    public function index() {
         $data = [
             // index.phpがあってもbladeが優先的に読み込まれる
-            'msg'=>'これはBladeを利用したサンプルです。',
+            'msg'=>'お名前を入力してください。',
+        ];
+        return view('hello.index', $data);
+    }
+
+    public function post(Request $request) {
+        $msg = $request->msg;
+        $data = [
+            $msg=>'こんにちは、' . $msg . 'さん！',
         ];
         return view('hello.index', $data);
     }
