@@ -12,9 +12,9 @@
 
 @section('content')
   <p>これが本文のコンテンツです。</p>
-  <p>必要なだけ記述できます。</p>
-
-  @include('component.message', ['msg_title'=>'OK', 'msg_content'=>'サブビューです。'])
+  <il>
+  @each('component.item', $data, 'item')
+  </ul>
 
 @endsection
 
