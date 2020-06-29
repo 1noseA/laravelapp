@@ -4,7 +4,8 @@
 <!-- セクション名, 表示する値 -->
 @section('title', 'Index')
 
-<!-- @endsectionを併用した書き方 -->
+<!-- endsectionを併用した書き方 -->
+{{-- @endsectionを併用した書き方 --}}
 @section('menubar')
   @parent
   インデックスページ
