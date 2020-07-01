@@ -12,7 +12,7 @@ class HelloController extends Controller {
     public function index(Request $request)
     {
         // テーブル作成の際にpeopleのつづりを間違えてしまった
-        $items = DB::select('select * from peple');
+        $items = DB::table('peple')->get();
         return view('hello.index', ['items' => $items]);
     }
 
@@ -69,5 +69,12 @@ class HelloController extends Controller {
         $param = ['id' => $request->id];
         DB::delete('delete from peple where id = :id', $param);
         return redirect('/hello');
+    }
+
+    public function show(Request $request)
+    {
+        $id = $request->id;
+        $item = DB::table('peple')->where('id', $id)->first();
+        return view('hello.show', ['item' => $item]);
     }
 }
