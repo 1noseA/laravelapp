@@ -74,7 +74,7 @@ class HelloController extends Controller {
     public function show(Request $request)
     {
         $id = $request->id;
-        $item = DB::table('peple')->where('id', $id)->first();
-        return view('hello.show', ['item' => $item]);
+        $items = DB::table('peple')->where('id', '<=', $id)->get();
+        return view('hello.show', ['items' => $items]);
     }
 }
