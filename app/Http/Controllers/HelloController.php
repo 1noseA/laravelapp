@@ -29,12 +29,31 @@ class HelloController extends Controller {
 
     public function create(Request $request)
     {
-        $params = [
+        $param = [
             'name' => $request->name,
             'mail' => $request->mail,
             'age' => $request->age,
         ];
-        DB::insert('insert into peple (name, mail, age) values (:name, :mail, :age)', $params);
+        DB::insert('insert into peple (name, mail, age) values (:name, :mail, :age)', $param);
+        return redirect('/hello');
+    }
+
+    public function edit(Request $request)
+    {
+        $param = ['id' => $request->id];
+        $item = DB::select('select * from peple where id = :id', $param);
+        return view('hello.edit', ['form'=> $item[0]]);
+    }
+
+    public function update(Request $request)
+    {
+        $param = [
+            'id' => $request->id,
+            'name' => $request->name,
+            'mail' => $request->mail,
+            'age' => $request->age,
+        ];
+        DB::update('update peple set name = :name, mail = :mail, age = :age where id = :id', $param);
         return redirect('/hello');
     }
 }
