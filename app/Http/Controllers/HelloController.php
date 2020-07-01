@@ -11,28 +11,30 @@ use Illuminate\Support\Facades\DB;
 class HelloController extends Controller {
     public function index(Request $request)
     {
-        if (isset($request->id))
-        {
-            $param = ['id' => $request->id];
-            // テーブル作成の際にpeopleのつづりを間違えてしまった
-            $items = DB::select('select * from peple where id = :id', $param);
-        } else {
-            $items = DB::select('select * from peple');
-        }
-        
+        // テーブル作成の際にpeopleのつづりを間違えてしまった
+        $items = DB::select('select * from peple');
         return view('hello.index', ['items' => $items]);
     }
 
     public function post(Request $request)
     {
-        $validate_rule = [
-            'msg' => 'required',
+        $items = DB::select('select * from peple');
+        return view('hello.index', ['items' => $items]);
+    }
+
+    public function add(Request $request)
+    {
+        return view('hello.add');
+    }
+
+    public function create(Request $request)
+    {
+        $params = [
+            'name' => $request->name,
+            'mail' => $request->mail,
+            'age' => $request->age,
         ];
-        $this->validate($request, $validate_rule);
-        $msg = $request->msg;
-        $response = response()->view('hello.index',
-            ['msg'=>'「' . $msg .'」をクッキーに保存しました。']);
-        $response->cookie('msg', $msg, 100);
-        return $response;
+        DB::insert('insert into peple (name, mail, age) values (:name, :mail, :age)', $params);
+        return redirect('/hello');
     }
 }
