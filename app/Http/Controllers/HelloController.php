@@ -11,8 +11,15 @@ use Illuminate\Support\Facades\DB;
 class HelloController extends Controller {
     public function index(Request $request)
     {
-        // テーブル作成の際にpeopleのつづりを間違えてしまった
-        $items = DB::select('select * from peple');
+        if (isset($request->id))
+        {
+            $param = ['id' => $request->id];
+            // テーブル作成の際にpeopleのつづりを間違えてしまった
+            $items = DB::select('select * from peple where id = :id', $param);
+        } else {
+            $items = DB::select('select * from peple');
+        }
+        
         return view('hello.index', ['items' => $items]);
     }
 
