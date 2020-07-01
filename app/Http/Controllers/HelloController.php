@@ -12,7 +12,7 @@ class HelloController extends Controller {
     public function index(Request $request)
     {
         // テーブル作成の際にpeopleのつづりを間違えてしまった
-        $items = DB::table('peple')->get();
+        $items = DB::table('peple')->orderBy('age', 'asc')->get();
         return view('hello.index', ['items' => $items]);
     }
 
@@ -73,10 +73,13 @@ class HelloController extends Controller {
 
     public function show(Request $request)
     {
-        $min = $request->min;
-        $max = $request->max;
+        $page = $request->page;
         $items = DB::table('peple')
-        ->whereRaw('age >= ? and age <= ?', [$min, $max])->get();
+        // 指定した位置から（下記は1ページ3レコードずつ表示される）
+        ->offset($page * 3)
+        // 指定した数だけ
+        ->limit(3)
+        ->get();
         return view('hello.show', ['items' => $items]);
     }
 }
