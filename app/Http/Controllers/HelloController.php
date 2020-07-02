@@ -12,13 +12,13 @@ class HelloController extends Controller {
     public function index(Request $request)
     {
         // テーブル作成の際にpeopleのつづりを間違えてしまった
-        $items = DB::table('peple')->orderBy('age', 'asc')->get();
+        $items = DB::table('people')->orderBy('age', 'asc')->get();
         return view('hello.index', ['items' => $items]);
     }
 
     public function post(Request $request)
     {
-        $items = DB::select('select * from peple');
+        $items = DB::select('select * from people');
         return view('hello.index', ['items' => $items]);
     }
 
@@ -34,13 +34,13 @@ class HelloController extends Controller {
             'mail' => $request->mail,
             'age' => $request->age,
         ];
-        DB::table('peple')->insert($param);
+        DB::table('people')->insert($param);
         return redirect('/hello');
     }
 
     public function edit(Request $request)
     {
-        $item = DB::table('peple')
+        $item = DB::table('people')
         ->where('id', $request->id)->first();
         return view('hello.edit', ['form'=> $item]);
     }
@@ -52,7 +52,7 @@ class HelloController extends Controller {
             'mail' => $request->mail,
             'age' => $request->age,
         ];
-        DB::table('peple')
+        DB::table('people')
         // whereをつけないと全レコードが更新されてしまう
         ->where('id', $request->id)
         ->update($param);
@@ -62,7 +62,7 @@ class HelloController extends Controller {
     public function del(Request $request)
     {
         // whereをつけないと全レコードが削除されてしまう
-        $item = DB::table('peple')
+        $item = DB::table('people')
         ->where('id', $request->id)->first();
         return view('hello.del', ['form'=> $item]);
     }
@@ -70,7 +70,7 @@ class HelloController extends Controller {
     public function remove(Request $request)
     {
         // whereをつけないと全レコードが削除されてしまう
-        $item = DB::table('peple')
+        $item = DB::table('people')
         ->where('id', $request->id)->delete();
         return redirect('/hello');
     }
@@ -78,7 +78,7 @@ class HelloController extends Controller {
     public function show(Request $request)
     {
         $page = $request->page;
-        $items = DB::table('peple')
+        $items = DB::table('people')
         // 指定した位置から（下記は1ページ3レコードずつ表示される）
         ->offset($page * 3)
         // 指定した数だけ
