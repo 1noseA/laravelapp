@@ -7,11 +7,6 @@ use App\Scopes\ScopePerson;
 
 class Person extends Model
 {
-    public function getData()
-    {
-        return $this->id . ': ' . $this->name . '(' . $this->age . ')';
-    }
-
     public function scopeNameEqual($query, $str)
     {
         return $query->where('name', $str);
@@ -32,5 +27,19 @@ class Person extends Model
     {
         parent::boot();
         static::addGlobalScope(new ScopePerson);
+    }
+
+    // 入力のガードを設定しておく
+    protected $guarded = array('id');
+
+    public static $rules = array(
+        'name' => 'required',
+        'mail' => 'email',
+        'age' => 'integer|min:0|max:150'
+    );
+
+    public function getData()
+    {
+        return $this->id . ': ' . $this->name . '(' . $this->age . ')';
     }
 }
