@@ -1,5 +1,4 @@
 <?php
-
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
@@ -18,9 +17,11 @@ class Board extends Model
     {
         return $this->belongsTo('App\Person');
     }
-
+    // 既にあるメソッドを修正
     public function getData()
     {
-        return $this->id . ': ' . $this->title . '(' . $this->person->name . ')';
+        return $this->id . ': ' . $this->title . ' ('
+        . $this->person->name . ')';
     }
+
 }

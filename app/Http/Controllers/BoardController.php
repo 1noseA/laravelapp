@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Board;
@@ -7,16 +6,11 @@ use Illuminate\Http\Request;
 
 class BoardController extends Controller
 {
+
     public function index(Request $request)
     {
-        // N+1問題
-        $items = Board::with('person')->get();
-        return view('board.index', ['items' => $items]);
-    }
-
-    public function add(Request $request)
-    {
-        return view('board.add');
+    $items = Board::with('person')->get();
+    return view('board.index', ['items' => $items]);
     }
 
     public function create(Request $request)
