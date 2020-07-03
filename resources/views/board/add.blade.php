@@ -10,6 +10,7 @@
 @section('content')
   <form action="/board/add" method="post">
   <table>
+    @csrf
     <tr>
       <th>person id: </th>
       <td><input type="number" name="person_id"></td>
