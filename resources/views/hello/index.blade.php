@@ -1,5 +1,9 @@
 <!-- layoutsフォルダのhelloapp.blade.phpを親レイアウトとして継承 -->
 @extends('layouts.helloapp')
+<style>
+  .pagination { font-size:10pt; }
+  .pagination li { display:inlign-block }
+</style>
 
 <!-- セクション名, 表示する値 -->
 @section('title', 'Index')
@@ -26,6 +30,7 @@
     </tr>
     @endforeach
   </table>
+  {{ $items->links() }}
 @endsection
 
 @section('footer')
