@@ -3,6 +3,10 @@
 <style>
   .pagination { font-size:10pt; }
   .pagination li { display:inlign-block }
+  tr th a:link { color: white; }
+  tr th a:visited { color: white; }
+  tr th a:hover { color: white; }
+  tr th a:active { color: white; }
 </style>
 
 <!-- セクション名, 表示する値 -->
@@ -18,9 +22,9 @@
 @section('content')
   <table>
     <tr>
-      <th>Name</th>
-      <th>Mail</th>
-      <th>Age</th>
+      <th><a href="/hello?sort=name">name</a></th>
+      <th><a href="/hello?sort=mail">mail</a></th>
+      <th><a href="/hello?sort=age">age</a></th>
     </tr>
     @foreach ($items as $item)
     <tr>
@@ -30,7 +34,7 @@
     </tr>
     @endforeach
   </table>
-  {{ $items->links() }}
+  {{ $items->appends(['sort' =>$sort])->links() }}
 @endsection
 
 @section('footer')
